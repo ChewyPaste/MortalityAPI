@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+  }
+
+body{
+    background-color: #efefef;
+}
+
+.hidden{
+    display: none;
+}
+
+header{
+    margin: auto;
+    height: auto;
+    width: 600px;
+    text-align: center;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+form{
+    flex: 1 auto;
+}

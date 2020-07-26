@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leading Causes of Deaths</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Whats gonna kill you?</h1>
+    </header>
+    <main>
+        <form action="submit" id="stateSearchForm">
+            <label for="stateSelect">I live in</label>
+            <select id="stateSelect" required>
+                <option selected value>Select State</option>
+            </select>
+            <br>
+            <label for="yearSelect">Use CDC data from year:</label>
+            <select id="yearSelect" required>
+                <option selected value>Select Year</option>
+            </select>
+            <!-- <input type="text" id="state"><br><br> -->
+            <br>
+            <input type="submit" value="Search"> 
+        </form>
+        <div class="css-results-wrapper hidden"><ol class="results"></ol></div>
+    </main>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
