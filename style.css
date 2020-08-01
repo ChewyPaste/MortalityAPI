@@ -1,6 +1,13 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
+
+p, a, li, h1, h2, label, input{
+    font-family: 'Gothic A1', sans-serif;
+}
+
 
 body{
     background-color: #efefef;
@@ -21,9 +28,43 @@ main{
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 600px;
+    margin: auto;
 
 }
 
 form{
     flex: 1 auto;
 }
+
+.sidenav {
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    background: #fff;
+    overflow-x: hidden;
+    padding: 8px 0;
+  }
+  
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-family: 'Gothic A1', sans-serif;
+    font-size: 25px;
+    color: #2196F3;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #064579;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+
+
