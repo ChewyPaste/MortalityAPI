@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leading Causes of Deaths</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <header>
-        <h1>Whats gonna kill you?</h1>
+        <h1>What's Probably Going To Kill You?</h1>
     </header>
     <main>
         <form action="submit" id="stateSearchForm">
@@ -25,15 +27,28 @@
             <br>
             <input type="submit" value="Search"> 
         </form>
-        <div class="css-results-wrapper hidden"><ol class="results"></ol></div>
+        <section class="css-results-wrapper "><ol class="results"></ol></section>
+        <!-- <figure id="chartContainer" style="height: 300px; width: 100%;"></figure> -->
+        <figure id="chartContainer"><canvas id="myChart" width="400" height="400"></canvas></figure>
     </main>
 
+    <nav class="sidenav">
+        <a href="#about">About</a>
+        <a href="#sources">Sources</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
     <script
     src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
