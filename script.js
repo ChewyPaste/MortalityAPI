@@ -83,14 +83,17 @@ $(watchButton);
 // const appToken = 'Makv8r9sxeet5wMNkZvDCGEl2';
 // const baseURL = " https://data.cdc.gov/resource/bi63-dtpu.json?" ;
 // const dataTopCauses =  "bi63-dtpu";
-
+usStates[0][0] + "(most recent)"
 function createOptions() {
+
   for (let i = 0; i < usStates.length; i++) {
     $("#stateSelect").append(new Option(usStates[i][0], usStates[i][0]));
   };
-  for (let i = 0; i < availYears.length; i++) {
+  $("#yearSelect").append(new Option(availYears[0] + " (most recent)", availYears[0]));
+  for (let i = 1; i < availYears.length; i++) {
     $("#yearSelect").append(new Option(availYears[i], availYears[i]));
   };
+  
   //defaults
   $("#stateSelect").val("New York");
   $("#yearSelect").val(2017);
@@ -100,9 +103,14 @@ function createOptions() {
 function watchButton() {
   $("#stateSearchForm").on("submit", event => {
     event.preventDefault();
+    $(".css-chart-sidenote").removeClass("hidden");
     $(".results").empty();
+    $("#css-placeholder-wrapper").remove();
+    $('.css-text-result').remove();
+    $("#chartContainer>canvas").remove();
+    $("#chartContainer").append(`<canvas id="myChart"></canvas>`);
+    $("#chartContainer").css("height","auto")
    getMortality();
-   //fetchCovid($("#stateSelect").val());
   });
 };
 
@@ -153,54 +161,32 @@ function getMortality() {
   .then(response => {
     let holder = [];
     response.map(element => holder.push(element))
-    console.log(holder);
-    //return holder;
     displayResults(holder,selectedState,selectedYear);
   })
-    //displayResults(responseJson,selectedState,selectedYear);
-
-
-
 }
-//console.log(displayCovidJson());
-  //console.log(resultsCovid());
-  // Promise.all([resultsTopDeaths(),resultsCovid()])
-  // .then( files =>{
-  //   //files.forEach(file=>{
-  //     for(let i = 0; i< files.length; i++){
-  //       console.log(files[i]);
-  //     }
-  //     //ProcessingInstruction( file.json() );
-  //     //  })
-  // })
-  
 
 function displayResults(responseJson, selectedState, selectedYear){
-  //console.log(responseJson + ":inside displayresults function");
   const results = [];
   $(".css-results-wrapper").removeClass("hidden");
   for (let i = 0; i < responseJson[0].length; i++){
-    console.log(i);
     
-    //console.log(responseJson[0][i])
     results.push(responseJson[0][i]);
   };
-  //console.log(results[1]);
-  
+
   results.sort((a, b) => parseInt(b.deaths) - parseInt(a.deaths)).push(responseJson[1]);
-  //console.log(results);
-  $(".results").prepend(`
-  <h3>In the year ${selectedYear}, there were ${Number(results[0].deaths).toLocaleString()} deaths in ${selectedState}; and just as a morbid comparison, so far, ${results[11].toLocaleString()} people have died to COVID-19 in this state</h3>
-  <p>The leading causes of death were:</p>
+ 
+
+  $(".results").before(`
+  <div class="css-text-result">
+  <h3>In the year ${selectedYear}, there were ${Number(results[0].deaths).toLocaleString()} deaths in ${selectedState}; for comparison, so far ${results[11].toLocaleString()} people in this state has succumbed to COVID-19</h3>
+  <br>
+  <h4>For ${selectedYear}, the leading causes of death in ${selectedState} were:</h4>
+  </div>
   `);
-  //console.log(results);
   for( let i = 1; i< results.length-1; i++){
     $(".results").append(`<li>${results[i].cause_name} - ${Number(results[i].deaths).toLocaleString()}</li>`);
   }
-  // //console.log(results + "::inside displayresults::");
-  
-  //return results;
-  //console.log(results);
+
   createChart(results);
 };
 
@@ -277,14 +263,9 @@ function chartWrapper(xinput,yinput,state,year){
 
   //let ysetCovid = covidData;
   let yset = yinput;
-  //console.log(yset + "::yset:: is coviddata included?---inside chartwrapper  ");
-  
-  //let stateName = state;
-  //let dataYear = year;
-  //let labelLegend = [`Leading Causes of Death in ${stateName} (${dataYear})`];
-  //console.log(typeof(ysetCovid));
   const ctx = document.getElementById('myChart').getContext('2d');
   Chart.defaults.global.legend.display = false;
+  // canvas.height = 0;
   const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -303,7 +284,7 @@ function chartWrapper(xinput,yinput,state,year){
                         'rgba(91, 191, 227, 0.2)',
                         'rgba(91, 191, 227, 0.2)',
                         'rgba(91, 191, 227, 0.2)',
-                        'rgba(227, 91, 191, 0.1)',
+                        'rgba(227, 91, 191, 0.4)',
                         ],
                         borderColor: [
                           'rgba(134, 154, 160)',
@@ -334,8 +315,18 @@ function chartWrapper(xinput,yinput,state,year){
                     ],
 
       options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: 'TESTTESTTESTTEST'
+          },
           scales: {
               yAxes: [{
+                  display:true,
+                  scaleLabel:{
+                      display: true,
+                      labelString: 'Value'
+                    },
                   ticks: {
                       beginAtZero: true
                   }

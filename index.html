@@ -4,40 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leading Causes of Deaths</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body id="home">
+
+    <nav class="navbar">
+        <div class="dropdown">
+            <div class="hamburger">
+                &#9776;
+            </div>
+            <div class="dropdown-content">  
+                <a href="#home">Home</a>
+                <a href="#sources">Sources</a>
+                <a href="#about">About Me</a>
+            </div>
+            <div class="menu">
+                <a href="#home">Home</a>
+                <a href="#sources">Sources</a>
+                <a href="#about">About Me</a>
+            </div>
+        </div> 
+    </nav>
+
+
+<div class="css-border-wrapper">
     <header>
-        <h1>What's Probably Going To Kill You?</h1>
+        <h1 class="css-header-item">What's Killing Everyone?</h1>
+        <h3 class="css-header-item">Data for those with morbid curiosities</h3>
+        <p class="css-header-item">Searching for the perfect something to trigger your midlife crisis? Look no further!
+            Simply select your current or intended state of residence and hit the search button. Doing so will give you a list of the top 10 leading causes of death for that state. With this information you can either come to grips with your own mortality or add them to your growing list of worries.
+            
+            
+            </p>
     </header>
     <main>
         <form action="submit" id="stateSearchForm">
-            <label for="stateSelect">I live in</label>
-            <select id="stateSelect" required>
+
+            <label for="stateSelect">I want to see what was killing people in </label><select id="stateSelect" required>
                 <option selected value>Select State</option>
             </select>
             <br>
-            <label for="yearSelect">Use CDC data from year:</label>
+            <label for="yearSelect">in the year</label>
             <select id="yearSelect" required>
                 <option selected value>Select Year</option>
             </select>
-            <!-- <input type="text" id="state"><br><br> -->
             <br>
-            <input type="submit" value="Search"> 
+            <input class="button1" type="submit" value="Search"> 
         </form>
-        <section class="css-results-wrapper "><ol class="results"></ol></section>
-        <!-- <figure id="chartContainer" style="height: 300px; width: 100%;"></figure> -->
-        <figure id="chartContainer"><canvas id="myChart" width="400" height="400"></canvas></figure>
+        <aside class="css-chart-result-wrap">
+            <section id="css-placeholder-wrapper">
+                <h2>Press the search button to begin</h2>
+                <h3>here's a cat to help you mentally prepare</h3>
+                <p>
+                    <img id="img-placeholder" src="kawaii.png" alt="cute-doggy-placeholder">
+                </p>
+            </section>
+            <section class="css-results-wrapper">
+                <ol class="results"></ol>
+            </section>
+            <figure id="chartContainer">
+                <canvas id="myChart"></canvas>
+            </figure>
+            <p class="css-chart-sidenote hidden">Note: CLRD - Chronic Lower Respiratory Disease</p>
+
+        </aside>   
+        <section id="sources">
+            <h3>Data Sources:</h3>
+            <ul>
+                <li>https://www.opendatanetwork.com/dataset/data.cdc.gov/bi63-dtpu</li>
+                <li>https://covidtracking.com/data/api</li>
+            </ul>
+        </section>
     </main>
-
-    <nav class="sidenav">
-        <a href="#about">About</a>
-        <a href="#sources">Sources</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
     <script
