@@ -80,10 +80,13 @@ const availYears = [
 $(createOptions);
 $(watchButton);
 
-// const appToken = 'Makv8r9sxeet5wMNkZvDCGEl2';
-// const baseURL = " https://data.cdc.gov/resource/bi63-dtpu.json?" ;
-// const dataTopCauses =  "bi63-dtpu";
-usStates[0][0] + "(most recent)"
+const appToken = 'Makv8r9sxeet5wMNkZvDCGEl2';
+const dataTopCauses =  "bi63-dtpu";
+const cdcBaseURL= " https://data.cdc.gov/resource/bi63-dtpu.json?" ;
+const covidBaseURL = "https://covidtracking.com/api/v1/states/";
+
+
+
 function createOptions() {
 
   for (let i = 0; i < usStates.length; i++) {
@@ -114,14 +117,6 @@ function watchButton() {
   });
 };
 
-
-
-const appToken = 'Makv8r9sxeet5wMNkZvDCGEl2';
-const cdcBaseURL= " https://data.cdc.gov/resource/bi63-dtpu.json?" ;
-const dataTopCauses =  "bi63-dtpu";
-const covidBaseURL = "https://covidtracking.com/api/v1/states/";
-
-
 function getMortality() {
   let selectedState = $("#stateSelect").val();
   let selectedYear = $("#yearSelect").val();
@@ -135,16 +130,11 @@ function getMortality() {
   async function resultsTopDeaths(){
   let response = await fetch(`${cdcBaseURL}state=${selectedState}&year=${selectedYear}`, options);
   let responseJson = await response.json();
-  //displayResults(responseJson,selectedState,selectedYear);
   return responseJson;
-//  console.log(responseJson);
-  
   }
 
-  //displayResults(resultsTopDeaths(),selectedState,selectedYear);
   //covid fetch
   let abbr = getAbbr(selectedState);
-
   async function resultsCovid(){
     let response = await fetch(covidBaseURL + abbr + "/current.json" );
     let responseJson = await response.json();
@@ -175,10 +165,9 @@ function displayResults(responseJson, selectedState, selectedYear){
 
   results.sort((a, b) => parseInt(b.deaths) - parseInt(a.deaths)).push(responseJson[1]);
  
-
   $(".results").before(`
   <div class="css-text-result">
-  <h3>In the year ${selectedYear}, there were ${Number(results[0].deaths).toLocaleString()} deaths in ${selectedState}; for comparison, so far ${results[11].toLocaleString()} people in this state has succumbed to COVID-19</h3>
+  <h3>In the year ${selectedYear}, there was a total of <span id="css-total-death">${Number(results[0].deaths).toLocaleString()}</span> deaths in ${selectedState}; for comparison, so far <span id="css-covid-total">${results[11].toLocaleString()}</span> people in this state has succumbed to COVID-19</h3>
   <br>
   <h4>For ${selectedYear}, the leading causes of death in ${selectedState} were:</h4>
   </div>
@@ -195,83 +184,34 @@ function createChart(data){
   let selectedYear = $("#yearSelect").val();
   let xChartData = [];
   let yChartData = [];
-  //let covidData = fetchCovid(selectedState);
   for( let i = 1; i< data.length-1; i++){
-    //console.log(data[i].cause_name);
     xChartData.push(data[i].cause_name);
     yChartData.push(data[i].deaths);
   }
   xChartData.push("COVID-19");
   yChartData.push(data[data.length-1]);
-  //console.log(covidData);
-  console.log(xChartData + "::xchartdata::\n" + yChartData + "::ychartdata::");
+  //console.log(xChartData + "::xchartdata::\n" + yChartData + "::ychartdata::");
   chartWrapper(xChartData,yChartData,selectedState,selectedYear);
 }
-
-// function fetchCovid(selectedState){
-//   let result= [];
-//   let abbr = getAbbr(selectedState);
-//   const baseURL = "https://covidtracking.com/api/v1/states/";
-//   return fetch(baseURL + abbr + "/current.json" )
-//   .then(response => response.json())
-//   .then(responseJson => { 
-//     //(Promise.resolve(responseJson.death));
-//     responseJson.death;
-//   });
-//   //return result;
-//   //console.log(jsonData);
-//   //.then(responseJson => result.push((responseJson.death)));
-// // .then(response => response.json());
-// }
-
-
-// async function fetchCovid(selectedState){
-
-//   let abbr = getAbbr(selectedState);
-//   const baseURL = "https://covidtracking.com/api/v1/states/";
-//   let results = await fetch(baseURL + abbr + "/current.json" )
-//      .then(response => response.json()).then(function giveResult(responseJson){
-//        return responseJson
-//      })
-//     //  .then(responseJson => { 
-//     //   //Promise.resolve(555);
-//     //   return responseJson.death;
-//     // })
-//     .catch(err => console.error);
-//     console.log(results);
-    
-//   //return results;
-// }
-
 
 function getAbbr(state) {
   const selectedState = usStates.find(s =>
     s.find(x => x.toLowerCase() === state.toLowerCase())
   )
   if (!selectedState) return null
-     //return selectedState;
   return selectedState[1].toLocaleLowerCase();
-  //  .filter(s => s.toLowerCase() !== state.toLowerCase());
 }
 
-
 function chartWrapper(xinput,yinput,state,year){
-
-//testLabel.push('COVID-19');
-//  let labelSet = xinput.push('COVID-19');
   let labelSet = xinput;
-
-  //let ysetCovid = covidData;
   let yset = yinput;
   const ctx = document.getElementById('myChart').getContext('2d');
   Chart.defaults.global.legend.display = false;
-  // canvas.height = 0;
   const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
           labels: labelSet,
           datasets: [{
-                        // label: labelLegend,
                         data: yset,
                         backgroundColor: [
                         'rgba(91, 191, 227, 0.2)',
@@ -301,24 +241,12 @@ function chartWrapper(xinput,yinput,state,year){
                         ],
                         borderWidth: 1
                     }
-                    // {
-                    //     label: ['COVID-19 as of today'],
-                    //     data: ysetCovid,
-                    //     backgroundColor: [
-                    //       'rgba(227, 91, 191, 0.1)',
-                    //     ],
-                    //     borderColor: [
-                    //       'rgba(134, 154, 160)',
-                    //     ],
-                    //     borderWidth: 1 ,
-                    // },
                     ],
 
       options: {
           responsive: true,
           title: {
             display: true,
-            text: 'TESTTESTTESTTEST'
           },
           scales: {
               yAxes: [{

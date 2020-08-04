@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leading Causes of Deaths</title>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet"> -->
+    <title>Mortality Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Cabin&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body id="home">
-
     <nav class="navbar">
+        <h2>Mortality Tracker</h2>
         <div class="dropdown">
+            <!-- <h1>Mortality Tracker</h1> -->
             <div class="hamburger">
                 &#9776;
             </div>
@@ -21,10 +21,12 @@
                 <a href="#sources">Sources</a>
                 <a href="#about">About Me</a>
             </div>
+            
             <div class="menu">
+                <!-- <h1>Mortality Tracker</h1> -->
                 <a href="#home">Home</a>
                 <a href="#sources">Sources</a>
-                <a href="#about">About Me</a>
+                <a href="https://chewypaste.github.io/Portfolio/" target="_blank">About Me</a>
             </div>
         </div> 
     </nav>
@@ -36,9 +38,8 @@
         <h3 class="css-header-item">Data for those with morbid curiosities</h3>
         <p class="css-header-item">Searching for the perfect something to trigger your midlife crisis? Look no further!
             Simply select your current or intended state of residence and hit the search button. Doing so will give you a list of the top 10 leading causes of death for that state. With this information you can either come to grips with your own mortality or add them to your growing list of worries.
-            
-            
-            </p>
+        </p>
+        <img id="img-header-virus" class="css-header-item" src="virus.png" alt="selfie of coronavirus">    
     </header>
     <main>
         <form action="submit" id="stateSearchForm">
@@ -62,23 +63,21 @@
                     <img id="img-placeholder" src="kawaii.png" alt="cute-doggy-placeholder">
                 </p>
             </section>
-            <section class="css-results-wrapper">
+            <div class="css-results-wrapper">
                 <ol class="results"></ol>
-            </section>
+            </div>
             <figure id="chartContainer">
                 <canvas id="myChart"></canvas>
             </figure>
             <p class="css-chart-sidenote hidden">Note: CLRD - Chronic Lower Respiratory Disease</p>
-
         </aside>   
         <section id="sources">
             <h3>Data Sources:</h3>
-            <ul>
-                <li>https://www.opendatanetwork.com/dataset/data.cdc.gov/bi63-dtpu</li>
-                <li>https://covidtracking.com/data/api</li>
-            </ul>
+                <a class="css-source-link" href="http://www.cdc.gov/nchs/deaths.htm" target="_blank">CDC/NCHS, National Vital Statistics System, mortality data</a>
+                <a class="css-source-link" href="https://covidtracking.com/data/api" target="_blank">The Covid Tracking Project</a>
         </section>
     </main>
+    <footer class="css-footer"><p>By Wen Cheong</p></footer>
 </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
